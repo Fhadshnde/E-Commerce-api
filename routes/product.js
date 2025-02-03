@@ -10,7 +10,11 @@ const router = require("express").Router();
 //CREATE
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newProduct = new Product(req.body);
+  const newProduct = new Product({
+    title: req.body.title,
+    price: parseFloat(req.body.price.replace(/,/g, '')),
+    categories: req.body.categories
+  });
 
   try {
     const savedProduct = await newProduct.save();
@@ -22,6 +26,10 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+  if (req.body.price) {
+    req.body.price = parseFloat(req.body.price.replace(/,/g, ''));
+  }
+
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
