@@ -2,7 +2,6 @@
   "name": "e-commerce-api",
   "version": "1.0.0",
   "main": "index.js",
-  "engines" : "22.x",
   "scripts": {
     "start": "nodemon index.js"
   },
