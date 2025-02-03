@@ -1,16 +1,15 @@
-const Product = require("../models/Product");
-const {
-  verifyToken,
-  verifyTokenAndAuthorization,
-  verifyTokenAndAdmin,
-} = require("./verifyToken");
+const mongoose = require("../models/Product");
+const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken");
 
 const router = require("express").Router();
 
 //CREATE
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newProduct = new Product(req.body);
+  const newProduct = new Product({
+    ...req.body,
+    price: parseFloat(req.body.price.replace(/,/g, '')) // تحويل القيمة إلى عدد صحيح
+  });
 
   try {
     const savedProduct = await newProduct.save();
@@ -22,6 +21,10 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+  if (req.body.price) {
+    req.body.price = parseFloat(req.body.price.replace(/,/g, '')); // تحويل القيمة إلى عدد صحيح
+  }
+
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
