@@ -25,7 +25,6 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 
-// نقطة النهاية الرئيسية للتحقق من أن الخادم يعمل
 app.get("/", (req, res) => {
   res.send("Server is running!");
 });
