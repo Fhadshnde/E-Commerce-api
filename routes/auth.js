@@ -8,6 +8,10 @@ dotenv.config();
 
 // REGISTER
 router.post("/register", async (req, res) => {
+  const existingEmail = await User.findOne({ email: req.body.email });
+if (existingEmail) {
+  return res.status(404).json("Email already exists");
+}
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
@@ -25,11 +29,7 @@ if (!req.body.username || !req.body.email || !req.body.password) {
 }
 
 
-const existingEmail = await User.findOne({ email: req.body.email });
-if (existingEmail) {
-  return res.status(404).json("Email already exists");
 
-}
 
   try {
     const savedUser = await newUser.save();
