@@ -18,7 +18,7 @@ if (existingEmail) {
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.PASS_SEC
-    ).toString(),
+    ).toString()
   });
 if (!newUser) {
   return res.status(400).json("Invalid user data");
