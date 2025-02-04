@@ -6,7 +6,7 @@ dotenv.config();
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const productRoute = require("./routes/product");
-const cartRoute = ("./routes/cart");
+const cartRoute = require("./routes/cart"); // تعديل هنا
 const cors = require("cors");
 app.use(cors());
 
@@ -19,8 +19,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 mongoose
   .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000, // مهلة الاتصال بقاعدة البيانات
   })
   .then(() => console.log("DB Connection Successful!"))
@@ -32,7 +30,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
-app.use("/api/carts", cartRoute);
+app.use("/api/carts", cartRoute); // تعديل هنا
 
 app.get("/", (req, res) => {
   res.send("Server is running!");
