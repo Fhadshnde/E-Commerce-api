@@ -24,17 +24,13 @@ if (!req.body.username || !req.body.email || !req.body.password) {
   return res.status(400).json("Please fill in all fields");
 }
 
-const existingUser = await User.findOne({ username: req.body.username });
-
-if (existingUser) {
-  return res.status(400).json("Username already exists");
-}
 
 const existingEmail = await User.findOne({ email: req.body.email });
 if (existingEmail) {
-  return res.status(400).json("Email already exists");
+  return res.status(404).json("Email already exists");
 
 }
+
   try {
     const savedUser = await newUser.save();
     return res.status(201).json(savedUser);
