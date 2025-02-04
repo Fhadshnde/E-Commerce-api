@@ -9,6 +9,14 @@ const productRoute = require("./routes/product");
 const cartRoute = ("./routes/cart");
 const cors = require("cors");
 app.use(cors());
+
+const corsOptions = {
+  origin: "http://localhost:3000",  
+  methods: "GET,POST",
+  allowedHeaders: "Content-Type,Authorization"
+};
+
+app.use(cors(corsOptions));
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
