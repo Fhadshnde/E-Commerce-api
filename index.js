@@ -6,8 +6,9 @@ dotenv.config();
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const productRoute = require("./routes/product");
-const cartRoute = require("./routes/cart");
-
+const cartRoute = ("./routes/cart");
+const cors = require("cors");
+app.use(cors());
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
